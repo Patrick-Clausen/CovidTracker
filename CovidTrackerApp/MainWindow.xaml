@@ -1,0 +1,272 @@
+﻿<Window x:Class="CovidTrackerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CovidTrackerApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <TabControl SelectionChanged="Selector_OnSelectionChanged">
+            <TabItem Header="General" x:Name="GeneralTab">
+                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Path=MunicipalityCaseList}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Municipality" Width="100" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
+                            <GridViewColumn Header="Population" Width="100" DisplayMemberBinding="{Binding Path=Population}"></GridViewColumn>
+                            <GridViewColumn Header="Active cases" Width="100" DisplayMemberBinding="{Binding Path=ActiveCases}"></GridViewColumn>
+                            <GridViewColumn Header="Positive tests" Width="100" DisplayMemberBinding="{Binding Path=PositiveTests}"></GridViewColumn>
+                            <GridViewColumn Header="Total tests" Width="100" DisplayMemberBinding="{Binding Path=TotalTests}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Statistics" x:Name="StatisticsTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0">Cases by Sex</Label>
+                    <ListView Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Path=SexCaseList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Sex" Width="100" DisplayMemberBinding="{Binding Path=Sex}"></GridViewColumn>
+                                <GridViewColumn Header="Registered People" Width="150" DisplayMemberBinding="{Binding Path=RegisteredPeople}"></GridViewColumn>
+                                <GridViewColumn Header="Active cases" Width="100" DisplayMemberBinding="{Binding Path=ActiveCases}"></GridViewColumn>
+                                <GridViewColumn Header="Positive tests" Width="100" DisplayMemberBinding="{Binding Path=PositiveTests}"></GridViewColumn>
+                                <GridViewColumn Header="Total tests" Width="100" DisplayMemberBinding="{Binding Path=TotalTests}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label Grid.Row="2">Cases by Age group</Label>
+                    <ListView Grid.Row="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Path=AgeCaseList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Age Group" Width="100" DisplayMemberBinding="{Binding Path=AgeGroup}"></GridViewColumn>
+                                <GridViewColumn Header="Registered People" Width="150" DisplayMemberBinding="{Binding Path=RegisteredPeople}"></GridViewColumn>
+                                <GridViewColumn Header="Active cases" Width="100" DisplayMemberBinding="{Binding Path=ActiveCases}"></GridViewColumn>
+                                <GridViewColumn Header="Positive tests" Width="100" DisplayMemberBinding="{Binding Path=PositiveTests}"></GridViewColumn>
+                                <GridViewColumn Header="Total tests" Width="100" DisplayMemberBinding="{Binding Path=TotalTests}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tracking" x:Name="TrackingTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0">Possible infections</Label>
+
+                    <ListView Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Path=PossibleInfectionList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Possible Infectee" Width="150" DisplayMemberBinding="{Binding Path=Infectee}"></GridViewColumn>
+                                <GridViewColumn Header="Possible Infector" Width="150" DisplayMemberBinding="{Binding Path=Infector}"></GridViewColumn>
+                                <GridViewColumn Header="Location" Width="250" DisplayMemberBinding="{Binding Path=LocationOfInfection}"></GridViewColumn>
+                                <GridViewColumn Header="Date of possible infection" Width="150" DisplayMemberBinding="{Binding Path=DateOfInfection}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Data Input" x:Name="DataInputTab">
+                <TabControl SelectionChanged="Selector_OnSelectionChanged">
+                    <TabItem Header="Citizen" x:Name="CitizenTab">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">First Name:</Label>
+                            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Text="{Binding Path=CitizenUnderCreation.FirstName}"></TextBox>
+                            <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="FirstNameRequired">*Required</Label>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Last Name:</Label>
+                            <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Text="{Binding Path=CitizenUnderCreation.LastName}"></TextBox>
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LastNameRequired">*Required</Label>
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Age:</Label>
+                            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" PreviewTextInput="NumberValidation" Text="{Binding Path=CitizenUnderCreation.Age}"></TextBox>
+                            <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="AgeRequired">*Required</Label>
+                            <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Sex:</Label>
+                            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="5" SelectionChanged="SelectorSex_OnSelectionChanged" x:Name="SexBox">
+                                <ComboBoxItem>Male</ComboBoxItem>
+                                <ComboBoxItem>Female</ComboBoxItem>
+                                <ComboBoxItem>Other</ComboBoxItem>
+                            </ComboBox>
+                            <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="SexRequired">*Required</Label>
+                            <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">SSN:</Label>
+                            <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" PreviewTextInput="NumberValidation" Text="{Binding Path=CitizenUnderCreation.SSN}"></TextBox>
+                            <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden"  x:Name="SSNRequired">*Required</Label>
+                            <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Municipality:</Label>
+                            <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Municipalities}" DisplayMemberPath="Name" SelectedValue="{Binding Path=CitizenUnderCreation.LivesIn}">
+                            </ComboBox>
+                            <Label Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="MunicipalityRequired">*Required</Label>
+                            <Button Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=CitizenSaveCommand}">Save</Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Test case" x:Name="TestCaseTab">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Test Center:</Label>
+                            <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=TestCenters}" DisplayMemberPath="Name" SelectedValue="{Binding Path=TestCaseUnderCreation.TestedAt}">
+                            </ComboBox>
+                            <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCaseTestCenterRequired">*Required</Label>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Citizen:</Label>
+                            <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Citizens}" DisplayMemberPath="FullName" SelectedValue="{Binding Path=TestCaseUnderCreation.TestedCitizen}">
+                            </ComboBox>
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCaseCitizenRequired">*Required</Label>
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Result:</Label>
+                            <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="5" Text="{Binding Path=TestCaseUnderCreation.Result}">
+                                <ComboBoxItem>Positive</ComboBoxItem>
+                                <ComboBoxItem>Negative</ComboBoxItem>
+                            </ComboBox>
+                            <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Status:</Label>
+                            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="5" Text="{Binding Path=TestCaseUnderCreation.Status}">
+                                <ComboBoxItem>Tested</ComboBoxItem>
+                                <ComboBoxItem>Result ready</ComboBoxItem>
+                            </ComboBox>
+                            <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCaseStatusRequired">*Required</Label>
+                            <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Date:</Label>
+                            <DatePicker DisplayDateStart="01/01/20" DisplayDateEnd="01/01/21" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="5" SelectedDate="{Binding Path=TestCaseUnderCreation.Date, Mode=OneWayToSource}"></DatePicker>
+                            <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCaseDateRequired">*Required</Label>
+                            <Button Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=TestCaseSaveCommand}">Save</Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Test center" x:Name="TestCenterTab">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Name:</Label>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=TestCenterUnderCreation.Name}"></TextBox>
+
+                            <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterNameRequired">*Required</Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Hours:</Label>
+
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=TestCenterUnderCreation.Hours}"></TextBox>
+
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterHoursRequired">*Required</Label>
+
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Location:</Label>
+                            <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Locations}" DisplayMemberPath="Address" SelectedValue="{Binding Path=TestCenterUnderCreation.PlacedIn}">
+                            </ComboBox>
+                            <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterLocationRequired">*Required</Label>
+
+
+                            <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Management Name:</Label>
+
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=TestCenterManagementUnderCreation.Name}"></TextBox>
+
+                            <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterManagementNameRequired">*Required</Label>
+
+                            <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Phone number:</Label>
+                            <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" PreviewTextInput="NumberValidation" Text="{Binding Path=TestCenterManagementUnderCreation.PhoneNumber}"></TextBox>
+                            <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterManagementPhoneNumberRequired">*Required</Label>
+
+                            <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Email address:</Label>
+                            <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Text="{Binding Path=TestCenterManagementUnderCreation.Email}"></TextBox>
+                            <Label Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="TestCenterManagementEmailRequired">*Required</Label>
+
+                            <Button Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=TestCenterSaveCommand}">Save</Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Location" x:Name="LocationTab">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Address:</Label>
+                            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5" Text="{Binding Path=LocationUnderCreation.Address}"></TextBox>
+                            <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="AddressRequired">*Required</Label>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Municipality:</Label>
+                            <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Municipalities}" DisplayMemberPath="Name" SelectedValue="{Binding Path=LocationUnderCreation.IsIn}">
+                            </ComboBox>
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationMunicipalityRequired">*Required</Label>
+                            <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=LocationSaveCommand}">Save</Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Location Visit" x:Name="LocationVisitTab">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Location:</Label>
+                            <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Locations}" DisplayMemberPath="Address" SelectedValue="{Binding Path=LocationVisitDayUnderCreation.VisitedLocation}">
+                            </ComboBox>
+                            <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationVisitLocationRequired">*Required</Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Citizen:</Label>
+                            <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" ItemsSource="{Binding Path=Citizens}" DisplayMemberPath="FullName" SelectedValue="{Binding Path=LocationVisitDayUnderCreation.VisitingCitizens[0]}">
+                            </ComboBox>
+                            <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationVisitCitizenRequired">*Required</Label>
+
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Date:</Label>
+                            <DatePicker DisplayDateStart="01/01/20" DisplayDateEnd="01/01/21"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="5" SelectedDate="{Binding Path=LocationVisitDayUnderCreation.DateOfVisit, Mode=OneWayToSource}"></DatePicker>
+                            <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationVisitDateRequired">*Required</Label>
+
+                            <Button Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=CitizenWasAtLocationSaveCommand}">Save</Button>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
