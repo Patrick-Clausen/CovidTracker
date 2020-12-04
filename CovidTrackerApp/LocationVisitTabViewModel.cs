@@ -141,7 +141,6 @@ namespace CovidTrackerApp
 
                     LocationVisitDayUnderCreation = new LocationVisitDay();
                     locationVisitDayUnderCreation.VisitingCitizens.Add(new Citizen());
-
                     RaisePropertyChanged("Locations");
                 }
                 catch (Exception e)

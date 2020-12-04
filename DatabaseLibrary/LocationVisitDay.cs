@@ -42,7 +42,7 @@ namespace DatabaseLibrary
             }
         }
 
-        private DateTime dateOfVisit;
+        private DateTime dateOfVisit = DateTime.UtcNow.Date;
         public DateTime DateOfVisit
         {
             get

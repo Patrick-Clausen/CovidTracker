@@ -59,7 +59,7 @@ namespace DatabaseLibrary
         }
         public string Result { get; set; }
 
-        private DateTime date;
+        private DateTime date = DateTime.UtcNow.Date;
         public DateTime Date
         {
             get

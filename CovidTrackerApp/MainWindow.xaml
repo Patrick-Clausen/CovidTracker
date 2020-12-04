@@ -259,7 +259,7 @@
                             <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationVisitCitizenRequired">*Required</Label>
 
                             <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">Date:</Label>
-                            <DatePicker DisplayDateStart="01/01/20" DisplayDateEnd="01/01/21"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="5" SelectedDate="{Binding Path=LocationVisitDayUnderCreation.DateOfVisit, Mode=OneWayToSource}"></DatePicker>
+                            <DatePicker x:Name="DatePicker" DisplayDateStart="01/01/20" DisplayDateEnd="01/01/21"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="5" SelectedDate="{Binding Path=LocationVisitDayUnderCreation.DateOfVisit}"></DatePicker>
                             <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="LocationVisitDateRequired">*Required</Label>
 
                             <Button Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Command="{Binding Path=CitizenWasAtLocationSaveCommand}">Save</Button>
